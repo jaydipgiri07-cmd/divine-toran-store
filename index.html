@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Divine Toran Store</title>
+
+<style>
+body{
+ margin:0;
+ font-family: 'Poppins', sans-serif;
+ background:#e8ffe8;
+ overflow-x:hidden;
+}
+
+/* HEADER */
+header{
+ background:#0b6623;
+ color:gold;
+ padding:20px;
+ text-align:center;
+ font-size:30px;
+ font-weight:600;
+ position:relative;
+ z-index:5;
+}
+
+/* VIDEO BACKGROUND */
+.video-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
+}
+
+/* CONTENT ON HOME VIDEO */
+.home-content {
+  text-align: center;
+  color: white;
+  margin-top: 22%;
+  text-shadow: 0 0 10px black;
+  position: relative;
+  z-index: 10;
+}
+
+.home-content h1{
+ font-size:44px;
+ margin:0;
+ color:#fff;
+}
+
+.home-content p{
+ font-size:20px;
+}
+
+/* BUTTON */
+.btn{
+ background:#0b6623;
+ color:gold;
+ padding:12px 25px;
+ border-radius:10px;
+ text-decoration:none;
+ font-size:18px;
+ display:inline-block;
+ margin:10px;
+ box-shadow:0 0 10px #0005;
+}
+
+.btn:hover{
+ background:#094d1a;
+}
+
+/* LOGIN / SIGNUP BOX */
+.box{
+ max-width:350px;
+ margin:40px auto;
+ padding:20px;
+ border:2px solid gold;
+ background:white;
+ border-radius:12px;
+ box-shadow:0 3px 10px rgba(0,0,0,0.2);
+ text-align:center;
+}
+.box input{
+ width:90%;
+ margin:10px 0;
+ padding:10px;
+ border-radius:8px;
+ border:1px solid #0b6623;
+}
+
+/* PRODUCTS GRID */
+.products{
+ display:flex;
+ flex-wrap:wrap;
+ justify-content:center;
+ padding:20px;
+}
+
+.card{
+ width:280px;
+ background:white;
+ border:2px solid gold;
+ border-radius:12px;
+ padding:15px;
+ margin:12px;
+ box-shadow:0 3px 10px rgba(0,0,0,0.2);
+}
+
+.card img{
+ width:100%;
+ border-radius:10px;
+ height:200px;
+ object-fit:cover;
+}
+
+.card h3{
+ margin:10px 0 5px;
+ color:#0b6623;
+}
+.card p{
+ margin:0;
+ color:#444;
+}
+
+/* FOOTER */
+footer{
+ background:#0b6623;
+ color:gold;
+ text-align:center;
+ padding:15px;
+ margin-top:20px;
+}
+</style>
+
+<script>
+function showPage(page){
+ document.getElementById("home").style.display="none";
+ document.getElementById("login").style.display="none";
+ document.getElementById("signup").style.display="none";
+ document.getElementById("products").style.display="none";
+
+ document.getElementById(page).style.display="block";
+}
+
+/* SIGNUP */
+function signupUser(){
+ let u = document.getElementById("su_user").value;
+ let p = document.getElementById("su_pass").value;
+ let p2 = document.getElementById("su_pass2").value;
+
+ if(u=="" || p=="" || p2==""){
+   alert("Please fill all fields");
+   return;
+ }
+ if(p !== p2){
+   alert("Passwords do not match!");
+   return;
+ }
+
+ localStorage.setItem("u", u);
+ localStorage.setItem("p", p);
+ alert("Signup Successful! Please login.");
+ showPage('login');
+}
+
+/* LOGIN */
+function loginUser(){
+ if(localStorage.getItem("u") === document.getElementById("lu").value &&
+    localStorage.getItem("p") === document.getElementById("lp").value){
+     localStorage.setItem("logged","1");
+     showPage('products');
+ }
+ else{
+     alert("Wrong Username or Password");
+ }
+}
+
+/* CHECK AUTH */
+function checkAuth(){
+ if(localStorage.getItem("logged")!=="1"){
+   showPage('login');
+ } else{
+   showPage('products');
+ }
+}
+</script>
+
+</head>
+<body>
+
+<header>Divine Toran Store</header>
+
+<!-- HOME PAGE WITH VIDEO -->
+<section id="home">
+
+<video autoplay muted loop class="video-bg">
+  <source src="https://cdn.pixabay.com/vimeo/438785428/village-35464.mp4?width=640&hash=cc932b82039f77" type="video/mp4">
+</video>
+
+<div class="home-content">
+  <h1>Premium Torans for Your Home</h1>
+  <p>Traditional • Handmade • Royal Collection</p>
+
+  <a class="btn" onclick="showPage('login')">Login</a>
+  <a class="btn" onclick="showPage('signup')">Sign Up</a>
+  <a class="btn" onclick="checkAuth()">View Products</a>
+</div>
+
+</section>
+<!-- SIGNUP PAGE -->
+<section id="signup" style="display:none;">
+<div class="box">
+ <h2>Create Account</h2>
+
+ <input id="su_user" placeholder="Choose Username">
+ <input id="su_pass" type="password" placeholder="Create Password">
+ <input id="su_pass2" type="password" placeholder="Confirm Password">
+
+ <a class="btn" onclick="signupUser()">Sign Up</a>
+
+ <br><br>
+ <a onclick="showPage('login')" style="cursor:pointer;">Already have account? Login</a>
+</div>
+</section>
+
+
+<!-- LOGIN PAGE -->
+<section id="login" style="display:none;">
+
+<style>
+.login-bg {
+  background-image: url('kano.3.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.login-box {
+  background: rgba(255,255,255,0.90);
+  padding: 30px;
+  width: 320px;
+  border-radius: 15px;
+  text-align: center;
+  box-shadow: 0 0 20px #00000040;
+}
+.login-box h2 {
+  margin-bottom: 15px;
+  color: #0b6623;
+}
+.login-box input {
+  width: 90%;
+  margin: 8px 0;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #0b6623;
+}
+.login-social a {
+  display: block;
+  color: #0b6623;
+  font-weight: bold;
+  text-decoration: none;
+  margin: 5px 0;
+}
+</style>
+
+<div class="login-bg">
+
+  <div class="login-box">
+    <h2>Divine Toran Store</h2>
+    <p style="color:#444;">Login to continue</p>
+
+    <input id="lu" placeholder="Username">
+    <input id="lp" type="password" placeholder="Password">
+
+    <a class="btn" onclick="loginUser()">Login</a>
+
+    <div class="login-social">
+      <a href="https://instagram.com/divine_toran07" target="_blank"> <h3>▶️ Instagram</h3></a>
+      <a href="https://youtube.com/@divinetoran" target="_blank"><h3>▶️ YouTube</h3></a>
+      <a href="https://www.meesho.com/MISHVASTYL?_ms=3.0.1"target="_blank"><h3>▶️ meshho</h3></a>
+    </div>
+
+  </div>
+
+</div>
+
+</section>
+<!-- PRODUCTS PAGE -->
+<section id="products" style="display:none;">
+<h2 style="text-align:center;color:#0b6623;margin-top:20px;">Our Toran Collection</h2>
+
+<div class="products">
+
+<!-- PRODUCT 1 -->
+<div class="card">
+<img src="toran-1.jpg">
+<h3>Toran 1</h3>
+<p>Beautiful handcrafted toran with premium materials.</p>
+<p><b>Price:</b> 400</p>
+<a class="btn" href="https://wa.me/919408369508?text=I want to order Toran 1">Order on WhatsApp</a>
+</div>
+
+<!-- PRODUCT 2 -->
+<div class="card">
+<img src="toran-2.jpg">
+<h3>Toran 2</h3>
+<p>Beautiful handcrafted toran with premium materials.</p>
+<p><b>Price:</b> ₹280</p>
+<a class="btn" href="https://wa.me/919408369508?text=I want to order Toran 2">Order on WhatsApp</a>
+</div>
+
+<!-- PRODUCT 3 -->
+<div class="card">
+<img src="toran-3.jpg">
+<h3>Toran 3</h3>
+<p>Beautiful handcrafted toran with premium materials.</p>
+<p><b>Price:</b> ₹400</p>
+<a class="btn" href="https://wa.me/919408369508?text=I want to order Toran 3">Order on WhatsApp</a>
+</div>
+
+<!-- PRODUCT 4 -->
+<div class="card">
+<img src="toran-4.jpg">
+<h3>Toran 4</h3>
+<p>Beautiful handcrafted toran with premium materials.</p>
+<p><b>Price:</b> ₹350</p>
+<a class="btn" href="https://wa.me/919408369508?text=I want to order Toran 4">Order on WhatsApp</a>
+</div>
+
+<!-- PRODUCT 5 -->
+<div class="card">
+<img src="toran-5.jpg">
+<h3>Toran 5</h3>
+<p>Beautiful handcrafted toran with premium materials.</p>
+<p><b>Price:</b> ₹350</p>
+<a class="btn" href="https://wa.me/919408369508?text=I want to order Toran 5">Order on WhatsApp</a>
+</div>
+
+
+
+<!-- PRODUCT 6 -->
+<div class="card"><img src="toran-6.jpg"><h3>Toran 6</h3><p>Beautiful handcrafted toran with premium materials.</p><p><b>Price:</b> ₹400</p><a class="btn" href="https://wa.me/919408369508?text=I want to order Toran 6">Order on WhatsApp</a></div>
+
+<!-- PRODUCT 7 -->
+<div class="card"><img src="toran-7.jpg"><h3>Toran 7</h3><p>Beautiful handcrafted toran with premium materials.</p><p><b>Price:</b> ₹350</p><a class="btn" href="https://wa.me/919408369508?text=I want to order Toran 7">Order on WhatsApp</a></div>
+
+<!-- PRODUCT 8 -->
+<div class="card"><img src="toran-8.jpg"><h3>Toran 8</h3><p>Beautiful handcrafted toran with premium materials.</p><p><b>Price:</b> ₹280</p><a class="btn" href="https://wa.me/919408369508?text=I want to order Toran 8">Order on WhatsApp</a></div>
+
+<!-- PRODUCT 9 -->
+<div class="card"><img src="toran-9.jpg"><h3>Toran 9</h3><p>Beautiful handcrafted toran with premium materials.</p><p><b>Price:</b> ₹320</p><a class="btn" href="https://wa.me/919408369508?text=I want to order Toran 9">Order on WhatsApp</a></div>
+
+<!-- PRODUCT 10 -->
+<div class="card"><img src="toran-10.jpg"><h3>Toran 10</h3><p>Beautiful handcrafted toran with premium materials.</p><p><b>Price:</b> ₹320</p><a class="btn" href="https://wa.me/919408369508?text=I want to order Toran 10">Order on WhatsApp</a></div>
+<div class="card">
+<img src="toran-11.jpg">
+<h3>Toran 11</h3>
+<p>Beautiful handcrafted toran with premium materials.</p>
+<p><b>Price:</b> ₹400</p>
+<a class="btn" href="https://wa.me/919408369508?text=I want to order Toran 2">Order on WhatsApp</a>
+</div>
+<div class="card">
+<img src="toran-12.jpg">
+<h3>Toran 12</h3>
+<p>Beautiful handcrafted toran with premium materials.</p>
+<p><b>Price:</b> ₹400</p>
+<a class="btn" href="https://wa.me/919408369508?text=I want to order Toran 2">Order on WhatsApp</a>
+</div>
+<div class="card">
+<img src="toran-13.jpg">
+<h3>Toran 13</h3>
+<p>Beautiful handcrafted toran with premium materials.</p>
+<p><b>Price:</b> ₹400</p>
+<a class="btn" href="https://wa.me/919408369508?text=I want to order Toran 2">Order on WhatsApp</a>
+</div>
+<div class="card">
+<img src="toran-14.jpg">
+<h3>Toran 14</h3>
+<p>Beautiful handcrafted toran with premium materials.</p>
+<p><b>Price:</b> ₹300</p>
+<a class="btn" href="https://wa.me/919408369508?text=I want to order Toran 2">Order on WhatsApp</a>
+</div>
+<div class="card">
+<img src="toran-15.jpg">
+<h3>Toran 15</h3>
+<p>Beautiful handcrafted toran with premium materials.</p>
+<p><b>Price:</b> ₹280</p>
+<a class="btn" href="https://wa.me/919408369508?text=I want to order Toran 2">Order on WhatsApp</a>
+</div>
+<div class="card">
+<img src="toran-16.jpg">
+<h3>Toran 16</h3>
+<p>Beautiful handcrafted toran with premium materials.</p>
+<p><b>Price:</b> ₹320</p>
+<a class="btn" href="https://wa.me/919408369508?text=I want to order Toran 2">Order on WhatsApp</a>
+</div>
+<div class="card">
+<img src="toran-17.jpg">
+<h3>Toran 17</h3>
+<p>Beautiful handcrafted toran with premium materials.</p>
+<p><b>Price:</b> ₹350</p>
+<a class="btn" href="https://wa.me/919408369508?text=I want to order Toran 2">Order on WhatsApp</a>
+</div>
+<div class="card">
+<img src="toran-18.jpg">
+<h3>Toran 18</h3>
+<p>Beautiful handcrafted toran with premium materials.</p>
+<p><b>Price:</b> ₹280</p>
+<a class="btn" href="https://wa.me/919408369508?text=I want to order Toran 2">Order on WhatsApp</a>
+</div>
+<div class="card">
+<img src="toran-19.jpg">
+<h3>Toran 19</h3>
+<p>Beautiful handcrafted toran with premium materials.</p>
+<p><b>Price:</b> ₹300</p>
+<a class="btn" href="https://wa.me/919408369508?text=I want to order Toran 2">Order on WhatsApp</a>
+</div>
+<div class="card">
+<img src="toran-20.jpg">
+<h3>Toran 20</h3>
+<p>Beautiful handcrafted toran with premium materials.</p>
+<p><b>Price:</b> ₹450</p>
+<a class="btn" href="https://wa.me/919408369508?text=I want to order Toran 2">Order on WhatsApp</a>
+</div>
+<div class="card">
+<img src="toran-21.jpg">
+<h3>Toran 21</h3>
+<p>Beautiful handcrafted toran with premium materials.</p>
+<p><b>Price:</b> ₹300</p>
+<a class="btn" href="https://wa.me/919408369508?text=I want to order Toran 2">Order on WhatsApp</a>
+</div>
+<div class="card">
+<img src="toran-22.jpg">
+<h3>Toran 22</h3>
+<p>Beautiful handcrafted toran with premium materials.</p>
+<p><b>Price:</b> ₹300</p>
+<a class="btn" href="https://wa.me/919408369508?text=I want to order Toran 2">Order on WhatsApp</a>
+</div>
+<div class="card">
+<img src="toran-23.jpg">
+<h3>Toran 23</h3>
+<p>Beautiful handcrafted toran with premium materials.</p>
+<p><b>Price:</b> ₹160</p>
+<a class="btn" href="https://wa.me/919408369508?text=I want to order Toran 2">Order on WhatsApp</a>
+</div>
+<div class="card">
+<img src="toran-24.jpg">
+<h3>Toran 24</h3>
+<p>Beautiful handcrafted toran with premium materials.</p>
+<p><b>Price:</b> ₹150</p>
+<a class="btn" href="https://wa.me/919408369508?text=I want to order Toran 2">Order on WhatsApp</a>
+</div>
+<div class="card">
+<img src="toran-25.jpg">
+<h3>Toran 25</h3>
+<p>Beautiful handcrafted toran with premium materials.</p>
+<p><b>Price:</b> ₹160</p>
+<a class="btn" href="https://wa.me/919408369508?text=I want to order Toran 2">Order on WhatsApp</a>
+</div>
+<div class="card">
+<img src="toran-26.jpg">
+<h3>Toran 26</h3>
+<p>Beautiful handcrafted toran with premium materials.</p>
+<p><b>Price:</b> ₹160</p>
+<a class="btn" href="https://wa.me/919408369508?text=I want to order Toran 2">Order on WhatsApp</a>
+</div>
+<div class="card">
+<img src="toran-27.jpg">
+<h3>Toran 27</h3>
+<p>Beautiful handcrafted toran with premium materials.</p>
+<p><b>Price:</b> ₹160</p>
+<a class="btn" href="https://wa.me/919408369508?text=I want to order Toran 2">Order on WhatsApp</a>
+</div>
+<div class="card">
+<img src="toran-28.jpg">
+<h3>Toran 28</h3>
+<p>Beautiful handcrafted toran with premium materials.</p>
+<p><b>Price:</b> ₹160</p>
+<a class="btn" href="https://wa.me/919408369508?text=I want to order Toran 2">Order on WhatsApp</a>
+</div>
+<div class="card">
+<img src="toran-29.jpg">
+<h3>Toran 29</h3>
+<p>Beautiful handcrafted toran with premium materials.</p>
+<p><b>Price:</b> ₹135</p>
+<a class="btn" href="https://wa.me/919408369508?text=I want to order Toran 2">Order on WhatsApp</a>
+</div>
+<div class="card">
+<img src="toran-30.jpg">
+<h3>Toran 30</h3>
+<p>Beautiful handcrafted toran with premium materials.</p>
+<p><b>Price:</b> ₹150</p>
+<a class="btn" href="https://wa.me/919408369508?text=I want to order Toran 2">Order on WhatsApp</a>
+</div>
+
+
+<!-- PRODUCT 31 -->
+<div class="card">
+<img src="toran-31.jpg">
+<h3>Toran 31</h3>
+<p>Beautiful handcrafted toran with premium materials.</p>
+<p><b>Price:</b> ₹150</p>
+<a class="btn" href="https://wa.me/919408369508?text=I want to order Toran 31">Order on WhatsApp</a>
+</div>
+
+</div> <!-- END PRODUCT GRID -->
+
+</section>
+
+<!-- FOOTER -->
+<footer>© 2025 Divine Toran Store</footer>
+
+</body>
+</html>
